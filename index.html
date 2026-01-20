@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Surprise</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <button id="startBtn" class="main-btn">Click this</button>
+
+  <div id="chest" class="object hidden">🧰</div>
+
+  <button id="giftBtn" class="main-btn hidden">Where is my gift</button>
+
+  <div id="gift" class="object hidden">🎁</div>
+  <div id="cake" class="object hidden">🎂</div>
+
+<script>
+let chestClicks=0, giftClicks=0, cakeClicks=0;
+
+const startBtn=document.getElementById("startBtn");
+const chest=document.getElementById("chest");
+const giftBtn=document.getElementById("giftBtn");
+const gift=document.getElementById("gift");
+const cake=document.getElementById("cake");
+
+function shake(el){
+  el.classList.remove("shake");
+  void el.offsetWidth;
+  el.classList.add("shake");
+}
+
+startBtn.onclick=()=>{
+  startBtn.classList.add("hidden");
+  chest.classList.remove("hidden");
+  chest.classList.add("fall");
+};
+
+chest.onclick=()=>{
+  chestClicks++;
+  shake(chest);
+  if(chestClicks===3){
+    showText();
+    confetti();
+    giftBtn.classList.remove("hidden");
+  }
+};
+
+giftBtn.onclick=()=>{
+  giftBtn.classList.add("hidden");
+  gift.classList.remove("hidden");
+  gift.classList.add("fall");
+};
+
+gift.onclick=()=>{
+  giftClicks++;
+  shake(gift);
+  if(giftClicks===2){
+    cake.classList.remove("hidden");
+  }
+};
+
+cake.onclick=()=>{
+  cakeClicks++;
+  shake(cake);
+  if(cakeClicks===2){
+    cake.textContent="🍰";
+  }
+};
+
+function showText(){
+  const h=document.createElement("h1");
+  h.innerText="Happy Birthday Roshni Appu 💖🎉";
+  document.body.appendChild(h);
+}
+
+function confetti(){
+  for(let i=0;i<60;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.innerText="🎉";
+    c.style.left=Math.random()*100+"vw";
+    c.style.animationDuration=2+Math.random()*2+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4000);
+  }
+}
+</script>
+
+</body>
+</html>
